@@ -25,7 +25,16 @@ fn main() {
                     _ => todo!(),
                 };
 
-                num_stack.push(r)
+                num_stack.push(r);
+            }
+            ")+" | ")*" => {
+                let r = match element {
+                    ")+" => num_stack.iter().sum(),
+                    ")*" => num_stack.iter().product(),
+                    _ => todo!(),
+                };
+
+                num_stack = vec![r];
             }
             s => num_stack.push(s.parse().expect("an error ocuurs while parsing a number")),
         }
