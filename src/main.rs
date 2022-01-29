@@ -13,6 +13,7 @@ fn main() {
 
     for element in expression {
         match element {
+            // binary operators
             "*" | "+" | "-" | "/" => {
                 let a = num_stack.pop().unwrap();
                 let b = num_stack.pop().unwrap();
@@ -27,6 +28,7 @@ fn main() {
 
                 num_stack.push(r);
             }
+            // unary operators
             ")+" | ")*" => {
                 let r = match element {
                     ")+" => num_stack.iter().sum(),
@@ -36,7 +38,14 @@ fn main() {
 
                 num_stack = vec![r];
             }
-            s => num_stack.push(s.parse().expect("an error ocuurs while parsing a number")),
+            // numbers
+            _ => {
+                let r = element
+                    .parse()
+                    .expect("an error ocuurs while parsing a number");
+
+                num_stack.push(r);
+            }
         }
     }
 
